@@ -41,6 +41,18 @@ def move(direction, x, y, size_n=SIZE_N, size_m=SIZE_M):
     return x, y
 
 
+def win_condition(char_x, char_y, 
+                  exit_x, exit_y):
+    win_condition = char_x == exit_x and char_y == exit_y
+
+    if win_condition:
+        char_sign = 'W'
+        world_map = generate_map(char_x, char_y, char_sign,
+                                exit_x, exit_y)
+        print(world_map)
+        return True
+
+
 char_x = randint(0, SIZE_N - 1)
 char_y = randint(0, SIZE_M - 1)
 char_sign = 'X'
@@ -52,19 +64,13 @@ turns = 0
 
 while True:
 
-    world_map = ''
-    win_condition = char_x == exit_x and char_y == exit_y
-
-    if win_condition:
-        char_sing = 'W'
+    if win_condition(char_x, char_y, exit_x, exit_y):
+        print(f'You WON in {turns} turns!')
+        break
 
     world_map = generate_map(char_x, char_y, char_sign,
                              exit_x, exit_y)
     print(world_map)
-
-    if win_condition:
-        print(f'You WON in {turns} turns!')
-        break
 
     direction = input('Enter direction (u / d / l / r): ')
 
