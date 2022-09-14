@@ -1,8 +1,10 @@
-from random import randint
+from random import randint, choice
 
 
-SIZE_N = 5
-SIZE_M = 5
+# SIZE_N = 5
+# SIZE_M = 5
+SIZE_N = randint(5, 20)
+SIZE_M = randint(5, 20)
 
 
 def generate_map(char_x, char_y, char_sign,
@@ -85,10 +87,9 @@ while True:
     print(world_map)
 
     direction = input('Enter direction (u / d / l / r): ')
-
     char_x, char_y = move(direction, char_x, char_y)
 
-    turns += 1
+    enemy_direction = choice('udlr')
+    enemy_x, enemy_y = move(enemy_direction, enemy_x, enemy_y)
 
-    
-                      
+    turns += 1
