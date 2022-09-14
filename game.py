@@ -46,30 +46,20 @@ def move(direction, x, y, size_n=SIZE_N, size_m=SIZE_M):
     return x, y
 
 
-def win_loss_condition(char_x, char_y, 
+def win_loss_condition(char_x, char_y, char_sign,
                        exit_x, exit_y):
     win_condition = char_x == exit_x and char_y == exit_y
     loss_condition = char_x == enemy_x and char_y == enemy_y
 
     if win_condition:
-
         char_sign = 'W'
-        world_map = generate_map(char_x, char_y, char_sign,
-                                 enemy_x, enemy_y, enemy_sign,
-                                 exit_x, exit_y, exit_sign)
-        print(world_map)
         print(f'You WON in {turns} turns!')
-        return True
 
     elif loss_condition:
-
         char_sign = 'L'
-        world_map = generate_map(char_x, char_y, char_sign,
-                                 enemy_x, enemy_y, enemy_sign,
-                                 exit_x, exit_y, exit_sign)
-        print(world_map)
         print(f'You LOST in {turns} turns!')
-        return True
+    
+    return char_sign, win_condition or loss_condition
 
 
 char_x = randint(0, SIZE_N - 1)
@@ -88,14 +78,18 @@ turns = 0
 
 while True:
 
-    if win_loss_condition(char_x, char_y, 
-                          exit_x, exit_y):
-        break
+    char_sign, end_flag = win_loss_condition(char_x, char_y, char_sign, 
+                                             exit_x, exit_y)
+
+
 
     world_map = generate_map(char_x, char_y, char_sign,
                              enemy_x, enemy_y, enemy_sign,
                              exit_x, exit_y, exit_sign)
     print(world_map)
+
+    if end_flag:
+        break
 
     direction = input('Enter direction (u / d / l / r): ')
     char_x, char_y = move(direction, char_x, char_y)
