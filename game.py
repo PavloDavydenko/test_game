@@ -1,8 +1,7 @@
 from random import randint, choice
 
 
-# SIZE_N = 5
-# SIZE_M = 5
+# Set map size
 SIZE_N = randint(5, 20)
 SIZE_M = randint(5, 20)
 
@@ -62,6 +61,7 @@ def win_loss_condition(char_x, char_y, char_sign,
     return char_sign, win_condition or loss_condition
 
 
+# Set start coordinates to you, enemy and exit
 char_x = randint(0, SIZE_N - 1)
 char_y = randint(0, SIZE_M - 1)
 char_sign = 'X'
@@ -74,6 +74,7 @@ exit_x = randint(0, SIZE_N - 1)
 exit_y = randint(0, SIZE_M - 1)
 exit_sign = 'O'
 
+# Set start number of turns
 turns = 0
 
 while True:
@@ -81,13 +82,12 @@ while True:
     char_sign, end_flag = win_loss_condition(char_x, char_y, char_sign, 
                                              exit_x, exit_y)
 
-
-
     world_map = generate_map(char_x, char_y, char_sign,
                              enemy_x, enemy_y, enemy_sign,
                              exit_x, exit_y, exit_sign)
     print(world_map)
 
+    # End the game
     if end_flag:
         break
 
